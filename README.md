@@ -7,3 +7,4 @@ a shoe shop.
 
 ## simpleMusic
 Usage of object orientated programming concepts in the context of creation of music inclduinmg also the creation of musical documents. 
+Note: The installation of numpy, simpleaudio and drawsvg package is required.
