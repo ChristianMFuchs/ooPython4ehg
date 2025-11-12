@@ -12,49 +12,49 @@ class itemA():
     # is used.
     #
 
-    def __init__(self, usedScreen, polygonShape):
+    def __init__(self, xCenterInit, yCenterInit, polygonShape):
         self.xDim = 10
         self.yDim = 20
         self.polygonDefinition = polygonShape
-        self.polygonPlacement  = polygonShape
-        self.xCenter = usedScreen.get_width()/2
-        self.yCenter = usedScreen.get_height()/2
-        self.angle = 0
-        self.rotVelociy = 0
+        self.xCenter = xCenterInit
+        self.yCenter = yCenterInit
+        self.angle = np.pi/2
+        self.rotVelocity = 0
         self.transVelocity = 0
         return None
     
     def placePolygon(self, screenHeight):
-        self.polygonPlacement = []
+        polygonPlacement = []
         for k in self.polygonDefinition:
             pCart = (k[0]*np.cos(self.angle)- k[1]*np.sin(self.angle) + self.xCenter, 
                     (k[0]*np.sin(self.angle) + k[1]*np.cos(self.angle)) + self.yCenter )
             pGame = (pCart[0], screenHeight-pCart[1])
-            self.polygonPlacement.append(pGame)
-        return 1
+            polygonPlacement.append(pGame)
+        return polygonPlacement
 
     
     def updateVelocify(self, deltaVelocity):
-        self.velocity += deltaVelocity
-        if self.velocity < 0:
-            self.velocity = 0
-        elif self.velocity > 400:
-            self.velocity = 400
+        self.transVelocity += deltaVelocity
+        if self.transVelocity < 0:
+            self.transVelocity = 0
+        elif self.transVelocity > 400:
+            self.transVelocity = 400
         else:
             pass
         return 1
     
-    def updateAngle(self, deltaRotVelocity):
-        self.angle += deltaRotVelocity
-        if self.angle < 0:
-            self.angle += 2*np.pi
-        elif self.angle > np.pi * 2:
-            self.angle = 0
+    def updateRotVelocity(self, deltaRotVelocity):
+        self.rotVelocity += deltaRotVelocity
+        if self.rotVelocity < -10:
+            self.rotVelocity = -10
+        elif self.rotVelocity > 10:
+            self.rotVelocity = 10
         else:
             pass
         return 1
     
-    def updateLocation(self, deltaTime):
-        self.xCenter += np.cos(self.angle)*self.velocity*deltaTime
-        self.yCenter += np.sin(self.angle)*self.velocity*deltaTime
+    def updateCoordinatesAndAngle(self, deltaTime):
+        self.xCenter += np.cos(self.angle)*self.transVelocity*deltaTime
+        self.yCenter += np.sin(self.angle)*self.transVelocity*deltaTime
+        self.angle += self.rotVelocity*deltaTime
         return 1

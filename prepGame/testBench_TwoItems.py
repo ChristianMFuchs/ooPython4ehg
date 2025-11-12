@@ -8,7 +8,9 @@ clock = pygame.time.Clock()
 isRunning = True
 dt = 0
 
-tinyShip = shipClasses.itemA(screen, [(10,10), (-10,10),(-10,-10),(10,-10)] )
+tinyShipA = shipClasses.itemA(screen.get_width()/2, screen.get_height()/2, [(10,10), (-10,10),(-10,-10),(10,-10)] )
+tinyShipB = shipClasses.itemA(screen.get_width()/4, screen.get_height()/2, [(10,10), (-10,10),(-10,-10),(10,-10)] )
+
 
 while isRunning:
     # poll for events
@@ -21,20 +23,29 @@ while isRunning:
     screen.fill("black")
 
     #
-    tinyShip.updateCoordinatesAndAngle(dt)
-    
+    tinyShipA.updateCoordinatesAndAngle(dt)
+    tinyShipB.updateCoordinatesAndAngle(dt)
+
     # pygame.draw.polygon(screen, "red", [(10,10), (-10,10),(-10,-10),(10,-10)]) 
-    pygame.draw.polygon(screen, "white", tinyShip.placePolygon(screen.get_height()))
+    #thePolygon = tinyShipA.placePolygon(screen.get_height())
+    #nextPolygon = tinyShipB.placePolygon(screen.get_height())
+    #for j in nextPolygon:
+    #    thePolygon.append(j)
+
+    pygame.draw.polygon(screen, "white", tinyShipA.placePolygon(screen.get_height()))
+    pygame.draw.polygon(screen, "red", tinyShipB.placePolygon(screen.get_height()))
+
+    # pygame.draw.polygon(screen, "white", thePolygon)
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w]:
-        tinyShip.updateVelocify(30 * dt)
+        tinyShipA.updateVelocify(30 * dt)
     if keys[pygame.K_s]:
-        tinyShip.updateVelocify((-30) * dt)
+        tinyShipA.updateVelocify((-30) * dt)
     if keys[pygame.K_a]:
-        tinyShip.updateRotVelocity(1 * dt)
+        tinyShipA.updateRotVelocity(1 * dt)
     if keys[pygame.K_d]:
-        tinyShip.updateRotVelocity(-1 * dt)
+        tinyShipA.updateRotVelocity(-1 * dt)
 
     #print("v:",tinyShip.velocity," angle: ", tinyShip.angle, " x:", tinyShip.xCenter, " y:", tinyShip.yCenter, " dt:", dt)
     
