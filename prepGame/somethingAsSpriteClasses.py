@@ -111,3 +111,27 @@ class Player2(Block2):
         # Set the player object to the mouse location
         self.rect.x = pos[0]
         self.rect.y = pos[1]
+
+class Picture(pygame.sprite.Sprite):
+    #
+    # This class represents the ** block **.
+    # It derives from the "Sprite" class in Pygame.
+    # 
+    def __init__(self, _color, _width, _height):
+        # Constructor. Pass in the color of the block,
+        # and its size.
+ 
+        # Call the parent class (Sprite) constructor
+        super().__init__()
+ 
+        # Load the image
+        self.image = pygame.image.load("player.png").convert()
+ 
+        # Set our transparent color
+        self.image.set_colorkey((255,255,255))
+ 
+        # Fetch the rectangle object that has the dimensions of the image
+        # image.
+        # Update the position of this object by setting the values
+        # of rect.x and rect.y
+        self.rect = self.image.get_rect()
