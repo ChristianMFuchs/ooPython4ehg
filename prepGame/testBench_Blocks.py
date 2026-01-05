@@ -1,6 +1,6 @@
 import pygame
 import random
-import blockAsSpriteClasses
+import somethingAsSpriteClasses
  
 # Define some colors
 BLACK = (  0,   0,   0)
@@ -26,7 +26,7 @@ def main():
     
     for i in range(50):
         # This represents a block
-        block = blockAsSpriteClasses.Block(BLACK, 20, 15)
+        block = somethingAsSpriteClasses.Block(BLACK, 20, 15)
     
         # Set a random location for the block
         block.rect.x = random.randrange(screen_width)
@@ -37,7 +37,7 @@ def main():
         all_sprites_list.add(block)
     
     # Create a RED player block
-    player = blockAsSpriteClasses.Block(RED, 20, 15)
+    player = somethingAsSpriteClasses.Block(RED, 20, 15)
     all_sprites_list.add(player)
     
     # Loop until the user clicks the close button.

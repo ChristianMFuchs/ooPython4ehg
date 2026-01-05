@@ -1,4 +1,5 @@
-import pygame
+import pygame, numpy
+
 
 class Block(pygame.sprite.Sprite):
     #
