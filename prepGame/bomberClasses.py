@@ -22,7 +22,7 @@ class bomber(pygame.sprite.Sprite):
         #
         self.rect.x = 50
         self.rect.y = 50
-        self.xDelta = 5
+        self.xDelta = 3
         self.yDelta = 0
         #
         self.myUpdate = False
@@ -30,8 +30,8 @@ class bomber(pygame.sprite.Sprite):
         #
         self.attackState = "READY"
         self.nCounter = 0
-        self.nCounterLimit = 50
-        self.nBombs = 5
+        self.nCounterLimit = 3
+        self.nBombsLoad = 10
 
     def update(self):
          # *** Override of the pre-defined update function ***
@@ -49,32 +49,32 @@ class bomber(pygame.sprite.Sprite):
         # Work on bombin sequence
         #
         if self.attackState == "READY":
-            if random.random() < 0.1 and 0 == 1:
+            if random.random() < 0.1:
                 self.attackState = "LAUNCH_WAIT"
-                self.nBombs = 5
+                self.nBombs = self.nBombsLoad
                 self.nCounter = 0
-            elif self.attackState == "LAUNCH_WAIT":
-                #
-                if self.nCounter < 50: self.nCounter += 1
-                else: 
-                    self.attackState = "LAUNCH_THROW"
-                    self.nBombs -= 1
-            elif self.attackState == "LAUNCH_THROW_DONE":
-                #
-                if self.nBombs > 0:
-                    self.attackState = "LAUNCH_WAIT"
-                    self.nCounter = 0
-                else:
-                    self.attackState = "SUFFER"
-                    self.nCounter = 0
-            elif self.attackState == "SUFFER":
-                #
-                if self.nCounter < self.nCounterLimit:
-                    self.nCounter += 1
-                else:
-                    self.attackState = "READY"
+        elif self.attackState == "LAUNCH_WAIT":
+            #
+            if self.nCounter < self.nCounterLimit: self.nCounter += 1
+            else: 
+                self.attackState = "LAUNCH_THROW"
+                self.nBombs -= 1
+        elif self.attackState == "LAUNCH_THROW_DONE":
+            #
+            if self.nBombs > 0:
+                self.attackState = "LAUNCH_WAIT"
+                self.nCounter = 0
             else:
-                pass
+                self.attackState = "SUFFER"
+                self.nCounter = 0
+        elif self.attackState == "SUFFER":
+            #
+            if self.nCounter < self.nCounterLimit*20:
+                self.nCounter += 1
+            else:
+                self.attackState = "READY"
+        else:
+            pass
         #
         #
         #
@@ -103,7 +103,7 @@ class stupidBomb(pygame.sprite.Sprite):
         self.rect.x = _bomberObj.rect.x
         self.rect.y = _bomberObj.rect.y + 10
         self.xDelta = 0
-        self.yDelta = 3
+        self.yDelta = 1
         #
         self.myUpdate = False
 
