@@ -1,4 +1,4 @@
-import pygame, random, bomberClasses   
+import pygame, random, bomberClasses, numpy  
 
 def main():
 
@@ -20,10 +20,13 @@ def main():
     
     # This is a list of every sprite. All blocks and the player block as well.
     all_sprites_list = pygame.sprite.Group()
+    all_bombs_list = pygame.sprite.Group()
     
     myBomber = bomberClasses.bomber(screen, RED, 10, 10)
+    myBottom = bomberClasses.generalRectangle(screen, BLACK, 690, 5, 5, 390)
     
     all_sprites_list.add(myBomber)
+    all_sprites_list.add(myBottom)
 
     # Loop until the user clicks the close button.
     done = False
@@ -33,6 +36,9 @@ def main():
     
     # -------- Main Program Loop -----------
     while not done:
+        #
+        # Evaluate Mouse commands
+        #
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done = True
