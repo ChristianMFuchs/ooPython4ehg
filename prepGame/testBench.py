@@ -8,7 +8,7 @@ clock = pygame.time.Clock()
 isRunning = True
 dt = 0
 
-tinyShip = shipClasses.itemA(screen, [(10,10), (-10,10),(-10,-10),(10,-10)] )
+tinyShip = shipClasses.itemA(100, 100, [(10,10),(-10,10),(-10,-10),(10,-10)] )
 
 while isRunning:
     # poll for events

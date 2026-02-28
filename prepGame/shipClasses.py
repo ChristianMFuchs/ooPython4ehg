@@ -13,8 +13,6 @@ class itemA():
     #
 
     def __init__(self, xCenterInit, yCenterInit, polygonShape):
-        self.xDim = 10
-        self.yDim = 20
         self.polygonDefinition = polygonShape
         self.xCenter = xCenterInit
         self.yCenter = yCenterInit
