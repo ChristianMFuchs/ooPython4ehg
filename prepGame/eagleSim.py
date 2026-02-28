@@ -1,6 +1,7 @@
 import pygame
 import spaceships
 import shipAuxilliaries
+import time
 #
 # General settings
 # ================
@@ -12,7 +13,7 @@ dotsPerMeter = screenHeight/physicalHeight
 #
 isWaiting = 1
 #
-shipPolygonShape = [(0,10),(-10,-10),(10,10)] # in pysical dimensions --> m
+shipPolygonShape = [(0,10),(-10,-10),(10,-10)] # in pysical dimensions --> m
 
 # pygame setup
 pygame.init()
@@ -30,7 +31,7 @@ while isRunning:
         if event.type == pygame.QUIT:
             isRunning = False
     #
-    # Evaluation of player coimmands
+    # Evaluation of player commands
     #
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w]:
@@ -39,16 +40,19 @@ while isRunning:
         tinyShip.updateThrust(-1, -0.05)
     if keys[pygame.K_s]:
         isWaiting = shipAuxilliaries.toogle(isWaiting)
+        print('isWaiting:', isWaiting)
+        time.sleep(0.2) 
     if keys[pygame.K_a]:
         tinyShip.shutOffThrust()
     #
-    # Ship's position update procedure
+    # Playground update procedure update procedure
     #
     if isWaiting == 0:
-        tinyShip.updateMotion(-1, [0,0], dt )
+        tinyShip.updateMotion([0,-1], [0,0], dt)
     shipPolygon = tinyShip.placePolygon(screen.get_height())
     #
-    # Screen update procedure
+    #
+    # Screen update procedure - identical for all scenarios
     #
     # fill the screen with a color to wipe away anything from last frame
     screen.fill("black")
