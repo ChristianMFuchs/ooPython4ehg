@@ -65,3 +65,34 @@ class landingModuleA():
     def shutOffThrust(self):
         self.thrustForce = [0,0]
         return 1
+    
+class instrument():
+
+    def __init__(self, upperLeftCorner: list, dimensions:list, limitValues:list):
+        self.upperLeftCorner = upperLeftCorner
+        self.dimensions = dimensions
+        self.limitValues = limitValues
+        return None
+
+    def placePolygon(self, value:float):
+        polygon = []
+        if self.limitValues[0] < value and value < self.limitValues[1]:
+            yPosition = (value-self.limitValues[0])/(self.limitValues[1]-self.limitValues[0])
+            yPosition *= yPosition*self.dimensions[1]
+            yPosition = self.upperLeftCorner[1]+self.dimensions[1] - yPosition
+            #
+            polygon = [(self.upperLeftCorner[0], self.upperLeftCorner[1])]
+            polygon.append((self.upperLeftCorner[0], yPosition ))
+            polygon.append((self.upperLeftCorner[0]-10, yPosition ))
+            polygon.append((self.upperLeftCorner[0]+15, yPosition ))
+            polygon.append((self.upperLeftCorner[0], yPosition ))
+            polygon.append((self.upperLeftCorner[0], self.upperLeftCorner[1]+self.dimensions[1]))
+            polygon.append((self.upperLeftCorner[0]+self.dimensions[0], self.upperLeftCorner[1]+self.dimensions[1]))
+            polygon.append((self.upperLeftCorner[0]+self.dimensions[0], self.upperLeftCorner[1]))
+            #
+        else:
+            polygon = [(self.upperLeftCorner[0], self.upperLeftCorner[1])]
+            polygon.append((self.upperLeftCorner[0]+self.dimensions[0], self.upperLeftCorner[1]))
+            polygon.append((self.upperLeftCorner[0]+self.dimensions[0], self.upperLeftCorner[1]+self.dimensions[1]))
+            polygon.append((self.upperLeftCorner[0], self.upperLeftCorner[1]+self.dimensions[1]))
+        return polygon
